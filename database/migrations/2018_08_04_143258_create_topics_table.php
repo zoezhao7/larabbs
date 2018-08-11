@@ -9,7 +9,7 @@ class CreateTopicsTable extends Migration
 	{
 		Schema::create('topics', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('itle')->index();
+            $table->string('title')->index();
             $table->text('body');
             $table->integer('user_id')->index()->unsigned();
             $table->integer('category_id')->index()->unsigned();
