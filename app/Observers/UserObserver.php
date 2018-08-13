@@ -9,13 +9,16 @@ use App\Models\User;
 
 class UserObserver
 {
-    public function creating(User $user)
+    public function saving(User $user)
     {
-        //
+        // 如果不是 `http` 子串开头，那就是从后台上传的，需要补全 URL
+        if ( ! starts_with($user->avatar, 'http')) {
+
+            // 拼接完整的 URL
+            $user->avatar = config('app.url') . "/uploads/images/avatars/" . $user->avatar;
+        }
+
     }
 
-    public function updating(User $user)
-    {
-        //
-    }
+
 }
