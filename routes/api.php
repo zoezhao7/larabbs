@@ -31,9 +31,10 @@ $api->version('v1', [
     ], function($api) {
         $api->post('verificationCodes', 'VerificationCodesController@store')->name('api.verificationCodes.store');
         $api->post('users', 'UsersController@store')->name('users.store');
+        $api->post('socials/{socials_type}/authorizations', 'AuthorizationsController@socialStore')->name('api.socials.authorizations.store');
     });
 
-    // 用户注册
+    // 通用接口
     $api->group([
         'middleware' => 'api.throttle',
         'limit' => config('api.rate_limits.access.limit'),
