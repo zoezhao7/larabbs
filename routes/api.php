@@ -32,4 +32,14 @@ $api->version('v1', [
         $api->post('verificationCodes', 'VerificationCodesController@store')->name('api.verificationCodes.store');
         $api->post('users', 'UsersController@store')->name('users.store');
     });
+
+    // 用户注册
+    $api->group([
+        'middleware' => 'api.throttle',
+        'limit' => config('api.rate_limits.access.limit'),
+        'expires' => config('api.rate_limits.access.expires'),
+    ], function($api) {
+        $api->post('captchas', 'CaptchasController@store')->name('captchas.store');
+    });
+
 });
