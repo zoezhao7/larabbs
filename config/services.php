@@ -38,4 +38,8 @@ return [
         'appid' => env('BAIDU_TRANSLATE_APPID'),
         'key'   => env('BAIDU_TRANSLATE_KEY'),
     ],
+    'weather' => [
+        'ak' => env('BAIDU_WEATHER_AK'),
+        'sn' => env('BAIDU_WEATHER_SN'),
+    ],
 ];
