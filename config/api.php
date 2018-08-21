@@ -228,5 +228,15 @@ return [
         ],
 
     ],
+    'rate_limits' => [
+        'access' => [
+            'expires' => env('RATE_LIMIT_EXPIRES', 1),
+            'limit' => env('RATE_LIMIT', 60),
+        ],
+        'sign' => [
+            'expires' => env('RATE_LIMIT_EXPIRES', 1),
+            'limit' => env('RATE_LIMIT', 10),
+        ]
+    ]
 
 ];
