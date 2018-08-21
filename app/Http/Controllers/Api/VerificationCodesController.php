@@ -30,7 +30,7 @@ class VerificationCodesController extends Controller
                 return $this->response->errorInternal($message ?? '短信发送异常');
             }
         }
-        
+
         $key = 'verificationCode_' . str_random(15);
         $expiredAt = now()->addMinute(10);
 

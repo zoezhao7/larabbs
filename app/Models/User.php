@@ -16,22 +16,13 @@ class User extends Authenticatable
         notify as protected laravelNotify;
     }
 
-    public function ontify($instance)
-    {
-        if($this->id == Auth::id) {
-            return;
-        }
-        $this->increment('notification_count');
-        $this->laravelNotify($instance);
-    }
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'introduction', 'avatar'
+        'name', 'phone', 'email', 'password', 'introduction', 'avatar'
     ];
 
     /**
@@ -42,6 +33,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function ontify($instance)
+    {
+        if($this->id == Auth::id) {
+            return;
+        }
+        $this->increment('notification_count');
+        $this->laravelNotify($instance);
+    }
 
     public function topics()
     {
