@@ -31,7 +31,10 @@ $api->version('v1', [
     ], function($api) {
         $api->post('verificationCodes', 'VerificationCodesController@store')->name('api.verificationCodes.store');
         $api->post('users', 'UsersController@store')->name('users.store');
+        $api->post('authorizations', 'AuthorizationsController@store')->name('api.authorizations.store');
         $api->post('socials/{socials_type}/authorizations', 'AuthorizationsController@socialStore')->name('api.socials.authorizations.store');
+        $api->put('authorizations/current', 'AuthorizationsController@update')->name('api.authorizations.update');
+        $api->delete('authorizations/current', 'AuthorizationsController@destroy')->name('api.authorizations.destroy');
     });
 
     // 通用接口
