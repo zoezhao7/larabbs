@@ -55,6 +55,7 @@ $api->version('v1', [
         $api->get('topics/{topic}', 'TopicsController@show')->name('api.topics.show');
 
 
+
         // 需要 token 验证的接口
         $api->group(['middleware' => 'api.auth'], function($api) {
 
@@ -69,6 +70,10 @@ $api->version('v1', [
             $api->post('topics', 'TopicsController@store')->name('api.topics.store');
             $api->patch('topics/{topic}', 'TopicsController@update')->name('api.topics.update');
             $api->delete('topics/{topic}', 'TopicsController@destroy')->name('api.topics.destroy');
+
+            // 回复
+            $api->post('topics/{topic}/replies', 'RepliesController@store')->name('api.topics.replies.store');
+            $api->delete('topics/{topic}/replies/{reply}', 'RepliesController@destroy')->name('api.topics.replies.destroy');
 
         });
 
