@@ -20,10 +20,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
-    'namespace' => 'App\Http\Controllers\Api'
+    'namespace' => 'App\Http\Controllers\Api',
+    'middleware' => 'serializer:array',
 ], function($api) {
 
-    // 用户注册
+    // 用户注册相接口
     $api->group([
         'middleware' => 'api.throttle',
         'limit' => config('api.rate_limits.sign.limit'),
@@ -44,6 +45,12 @@ $api->version('v1', [
         'expires' => config('api.rate_limits.access.expires'),
     ], function($api) {
         $api->post('captchas', 'CaptchasController@store')->name('captchas.store');
+
+        // 需要 token 验证的接口
+        $api->group(['middleware' => 'api.auth'], function($api) {
+            $api->get('user', 'UsersController@me')->name('api.user.show');
+        });
+
     });
 
 });

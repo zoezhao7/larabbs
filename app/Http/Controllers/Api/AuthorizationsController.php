@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\SocialAuthorizationRequest;
 use App\Http\Requests\Api\AuthorizationRequest;
+use App\Transformers\UserTransformer;
 use Auth;
 
 class AuthorizationsController extends Controller
@@ -24,7 +25,14 @@ class AuthorizationsController extends Controller
             return $this->response->errorUnauthorized('用户名或密码错误');
         }
 
-        $this->respondWithToken($token)->setStatusCode(201);
+        $user = \Auth::guard('api')->user();
+        return $this->response->item($user, new UserTransformer())
+            ->setMeta([
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'expires_in' => \Auth::guard('api')->factory()->getTTL() * 60,
+            ])->setStatusCode(201);
+
     }
 
     public function socialStore($type, SocialAuthorizationRequest $request)
