@@ -3,12 +3,42 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\TopicRequest;
 use App\Transformers\TopicTransformer;
 
 class TopicsController extends Controller
 {
+    public function index(Request $request, Topic $topic)
+    {
+        $query = $topic->query();
+
+        if($categoryId = $request->category_id) {
+            $query->where('category_id', $categoryId);
+        }
+
+        switch ($request->order) {
+            case 'rencent':
+                $query->recent();
+                break;
+            default:
+                $query->recentReplied();
+                break;
+        }
+
+        $topics = $query->paginate(20);
+
+        return $this->response->paginator($topics, new TopicTransformer());
+    }
+
+    public function userIndex(User $user, Request $request)
+    {
+        $topics = $user->topics()->recent()->paginate(20);
+
+        return $this->response->paginator($topics, new TopicTransformer());
+    }
+
     public function store(TopicRequest $request, Topic $topic)
     {
         $topic->fill($request->all());
@@ -25,6 +55,15 @@ class TopicsController extends Controller
         $topic->update($request->all());
 
         return $this->response->item($topic, new TopicTransformer());
+    }
+
+    public function destroy(Topic $topic)
+    {
+        $this->authorize('destroy', $topic);
+
+        $topic->delete();
+
+        return $this->response->noContent();
     }
 
 }
