@@ -48,10 +48,21 @@ $api->version('v1', [
 
         // 需要 token 验证的接口
         $api->group(['middleware' => 'api.auth'], function($api) {
+
+            // 用户
             $api->get('user', 'UsersController@me')->name('api.user.show');
-            $api->post('images', 'ImagesController@store')->name('api.images.store');
             $api->patch('user', 'UsersController@update')->name('api.user.update');
+
+            // 图片
+            $api->post('images', 'ImagesController@store')->name('api.images.store');
+
+            // 话题分类
             $api->get('categories', 'CategoriesController@index')->name('api.categories.index');
+
+            // 话题
+            $api->post('topics', 'TopicsController@store')->name('api.topics.store');
+            $api->get('topics', 'TopicsController@index')->name('api.topics.index');
+
         });
 
     });
