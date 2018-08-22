@@ -49,6 +49,8 @@ $api->version('v1', [
         // 需要 token 验证的接口
         $api->group(['middleware' => 'api.auth'], function($api) {
             $api->get('user', 'UsersController@me')->name('api.user.show');
+            $api->post('images', 'ImagesController@store')->name('api.images.store');
+            $api->patch('user', 'UsersController@update')->name('api.user.update');
         });
 
     });
