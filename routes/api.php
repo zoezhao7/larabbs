@@ -51,6 +51,7 @@ $api->version('v1', [
             $api->get('user', 'UsersController@me')->name('api.user.show');
             $api->post('images', 'ImagesController@store')->name('api.images.store');
             $api->patch('user', 'UsersController@update')->name('api.user.update');
+            $api->get('categories', 'CategoriesController@index')->name('api.categories.index');
         });
 
     });
