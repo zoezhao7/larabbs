@@ -21,7 +21,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api',
-    'middleware' => 'serializer:array',
+    'middleware' => ['serializer:array', 'bindings']
 ], function($api) {
 
     // 用户注册相接口
@@ -62,6 +62,7 @@ $api->version('v1', [
             // 话题
             $api->post('topics', 'TopicsController@store')->name('api.topics.store');
             $api->get('topics', 'TopicsController@index')->name('api.topics.index');
+            $api->patch('topics/{topic}', 'TopicsController@update')->name('api.topics.update');
 
         });
 
