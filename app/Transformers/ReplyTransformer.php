@@ -4,6 +4,8 @@ namespace App\Transformers;
 
 use App\Models\Reply;
 use League\Fractal\TransformerAbstract;
+use App\Transformers\UserTransformer;
+use App\Transformers\TopicTransformer;
 
 class ReplyTransformer extends TransformerAbstract
 {
@@ -23,11 +25,11 @@ class ReplyTransformer extends TransformerAbstract
 
     public function includeUser(Reply $reply)
     {
-        return $this->item($reply->user(), new UserTransformer());
+        return $this->item($reply->user, new UserTransformer());
     }
 
     public function includeTopic(Reply $reply)
     {
-        return $this->item($reply->topic(), new TopicTransformer());
+        return $this->item($reply->topic, new TopicTransformer());
     }
 }

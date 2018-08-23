@@ -54,6 +54,10 @@ $api->version('v1', [
         $api->get('user/{user}/topics', 'TopicsController@userIndex')->name('api.users.topics.index');
         $api->get('topics/{topic}', 'TopicsController@show')->name('api.topics.show');
 
+        // 回复
+        $api->get('topics/{topic}/replies', 'RepliesController@index')->name('api.topics.replies');
+        $api->get('users/{user}/replies', 'RepliesController@userIndex')->name('api.users.replies');
+
 
 
         // 需要 token 验证的接口
