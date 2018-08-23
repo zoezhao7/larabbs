@@ -61,6 +61,8 @@ $api->version('v1', [
         // 资源推荐
         $api->get('links', 'LinksController@index')->name('api.topics.replies');
 
+        // 活跃用户
+        $api->get('actived/users', 'UsersController@activedIndex')->name('api.actived.users');
 
 
         // 需要 token 验证的接口
