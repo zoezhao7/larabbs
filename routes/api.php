@@ -58,6 +58,9 @@ $api->version('v1', [
         $api->get('topics/{topic}/replies', 'RepliesController@index')->name('api.topics.replies');
         $api->get('users/{user}/replies', 'RepliesController@userIndex')->name('api.users.replies');
 
+        // 资源推荐
+        $api->get('links', 'LinksController@index')->name('api.topics.replies');
+
 
 
         // 需要 token 验证的接口
